@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -119,4 +119,1053 @@
 </script>
 
 </body>
+</html> -->
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drawing Canvas</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      text-align: center;
+    }
+    canvas {
+      border: 2px solid #333;
+      background-color: white;
+      cursor: crosshair;
+      border-radius: 8px;
+    }
+    .controls {
+      margin-top: 15px;
+      display: flex; 
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .control-btn, select, input {
+      padding: 10px 15px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      background-color: #007bff;
+      color: white;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .control-btn:hover, select:hover {
+      background-color: #0056b3;
+    }
+    .control-btn:active {
+      transform: scale(0.95);
+    }
+    #eraser {
+      background-color: #dc3545;
+    }
+    #eraser:hover {
+      background-color: #b02a37;
+    }
+    #clear {
+      background-color: #28a745;
+    }
+    #clear:hover {
+      background-color: #1e7e34;
+    }
+    #download {
+      background-color: #ffa500;
+    }
+    #download:hover {
+      background-color: #cc8400;
+    }
+    #brush-size {
+      background-color: #6c757d;
+      color: white;
+    }
+    #color-picker {
+      width: 50px;
+      height: 40px;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <canvas id="drawingCanvas" width="500" height="500"></canvas>
+  <div class="controls">
+    <button id="brush" class="control-btn">Brush</button>
+    <button id="eraser" class="control-btn">Eraser</button>
+    <button id="clear" class="control-btn">Clear</button>
+    <label for="brush-size">Size:</label>
+    <select id="brush-size">
+      <option value="3">Small</option>
+      <option value="5" selected>Medium</option>
+      <option value="10">Large</option>
+      <option value="20">Extra Large</option>
+    </select>
+    <input type="color" id="color-picker" value="#000000">
+    <button id="download" class="control-btn">Download</button>
+  </div>
+</div>
+
+<script>
+  const canvas = document.getElementById('drawingCanvas');
+  const ctx = canvas.getContext('2d');
+
+  let isDrawing = false;
+  let brushSize = 5;
+  let currentColor = '#000000';
+
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = currentColor;
+  ctx.lineWidth = brushSize;
+
+  function startDrawing(e) {
+    e.preventDefault();
+    isDrawing = true;
+    [lastX, lastY] = [e.offsetX || e.touches[0].clientX - canvas.offsetLeft, e.offsetY || e.touches[0].clientY - canvas.offsetTop];
+  }
+
+  function stopDrawing() {
+    isDrawing = false;
+    ctx.beginPath();
+  }
+
+  function draw(e) {
+    if (!isDrawing) return;
+    e.preventDefault();
+    const x = e.offsetX || e.touches[0].clientX - canvas.offsetLeft;
+    const y = e.offsetY || e.touches[0].clientY - canvas.offsetTop;
+
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    [lastX, lastY] = [x, y];
+  }
+
+  canvas.addEventListener('mousedown', startDrawing);
+  canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('mouseup', stopDrawing);
+  canvas.addEventListener('touchstart', startDrawing);
+  canvas.addEventListener('touchmove', draw);
+  canvas.addEventListener('touchend', stopDrawing);
+
+  document.getElementById('eraser').addEventListener('click', () => {
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = brushSize * 2;
+  });
+
+  document.getElementById('brush').addEventListener('click', () => {
+    ctx.strokeStyle = currentColor;
+    ctx.lineWidth = brushSize;
+  });
+
+  document.getElementById('clear').addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+
+  document.getElementById('brush-size').addEventListener('change', (e) => {
+    brushSize = e.target.value;
+    ctx.lineWidth = brushSize;
+  });
+
+  document.getElementById('color-picker').addEventListener('input', (e) => {
+    currentColor = e.target.value;
+    ctx.strokeStyle = currentColor;
+  });
+
+  document.getElementById('download').addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.download = 'drawing.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+</script>
+
+</body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Drawing Canvas</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      flex-direction: column;
+    }
+    .container {
+      text-align: center;
+    }
+    canvas {
+      border: 2px solid #333;
+      background-color: white;
+      cursor: crosshair;
+      border-radius: 8px;
+    }
+    .controls {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .control-btn, select, input {
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .control-btn { background-color: #007bff; color: white; }
+    .control-btn:hover { background-color: #0056b3; }
+    #eraser { background-color: #dc3545; }
+    #eraser:hover { background-color: #b02a37; }
+    #clear { background-color: #28a745; }
+    #clear:hover { background-color: #1e7e34; }
+    #download { background-color: #ffa500; }
+    #download:hover { background-color: #cc8400; }
+    .dropdown { padding: 6px; }
+    #color-picker { width: 50px; height: 30px; border: none; cursor: pointer; }
+    .size-input { width: 70px; text-align: center; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <canvas id="drawingCanvas" width="800" height="500"></canvas>
+  <div class="controls">
+    <button id="brush" class="control-btn">Brush (B)</button>
+    <button id="eraser" class="control-btn">Eraser (E)</button>
+    <button id="clear" class="control-btn">Clear (C)</button>
+    <label>Brush Size:</label>
+    <select id="brush-size">
+      <option value="3">Small</option>
+      <option value="5" selected>Medium</option>
+      <option value="10">Large</option>
+      <option value="20">Extra Large</option>
+    </select>
+    <input type="color" id="color-picker" value="#000000">
+    <select id="color-history" class="dropdown">
+      <option value="">Recent Colors</option>
+    </select>
+    <select id="common-colors" class="dropdown">
+      <option value="">Common Colors</option>
+      <option value="#ff0000">Red</option>
+      <option value="#00ff00">Green</option>
+      <option value="#0000ff">Blue</option>
+      <option value="#ffff00">Yellow</option>
+      <option value="#ff00ff">Magenta</option>
+      <option value="#00ffff">Cyan</option>
+      <option value="#000000">Black</option>
+      <option value="#ffffff">White</option>
+    </select>
+    <button id="download" class="control-btn">Download</button>
+  </div>
+</div>
+
+<script>
+  const canvas = document.getElementById('drawingCanvas');
+  const ctx = canvas.getContext('2d');
+
+  let isDrawing = false;
+  let brushSize = 5;
+  let currentColor = '#000000';
+  let lastX, lastY;
+  let drawHistory = [];
+  let redoStack = [];
+  let colorHistory = [];
+
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = currentColor;
+  ctx.lineWidth = brushSize;
+
+  function saveState() {
+    drawHistory.push(canvas.toDataURL());
+    redoStack = [];
+  }
+
+  function undo() {
+    if (drawHistory.length > 1) {
+      redoStack.push(drawHistory.pop());
+      let img = new Image();
+      img.src = drawHistory[drawHistory.length - 1];
+      img.onload = () => ctx.drawImage(img, 0, 0);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+
+  function redo() {
+    if (redoStack.length > 0) {
+      let img = new Image();
+      img.src = redoStack.pop();
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0);
+        drawHistory.push(img.src);
+      };
+    }
+  }
+
+  function startDrawing(e) {
+    e.preventDefault();
+    isDrawing = true;
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+    saveState();
+  }
+
+  function stopDrawing() {
+    isDrawing = false;
+    ctx.beginPath();
+  }
+
+  function draw(e) {
+    if (!isDrawing) return;
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+    [lastX, lastY] = [e.offsetX, e.offsetY];
+  }
+
+  function updateColor(newColor) {
+    if (!colorHistory.includes(newColor)) {
+      colorHistory.unshift(newColor);
+      if (colorHistory.length > 5) colorHistory.pop();
+      updateColorDropdown();
+    }
+    currentColor = newColor;
+    ctx.strokeStyle = currentColor;
+  }
+
+  function updateColorDropdown() {
+    const historyDropdown = document.getElementById('color-history');
+    historyDropdown.innerHTML = '<option value="">Recent Colors</option>';
+    colorHistory.forEach(color => {
+      let option = document.createElement('option');
+      option.value = color;
+      option.textContent = color;
+      option.style.backgroundColor = color;
+      historyDropdown.appendChild(option);
+    });
+  }
+
+  canvas.addEventListener('mousedown', startDrawing);
+  canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('mouseup', stopDrawing);
+
+  document.getElementById('eraser').addEventListener('click', () => {
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = brushSize * 2;
+  });
+
+  document.getElementById('brush').addEventListener('click', () => {
+    ctx.strokeStyle = currentColor;
+    ctx.lineWidth = brushSize;
+  });
+
+  document.getElementById('clear').addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+
+  document.getElementById('brush-size').addEventListener('change', (e) => {
+    brushSize = e.target.value;
+    ctx.lineWidth = brushSize;
+  });
+
+  document.getElementById('color-picker').addEventListener('input', (e) => updateColor(e.target.value));
+
+  document.getElementById('color-history').addEventListener('change', (e) => {
+    if (e.target.value) updateColor(e.target.value);
+  });
+
+  document.getElementById('common-colors').addEventListener('change', (e) => {
+    if (e.target.value) updateColor(e.target.value);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === 'z') undo();
+    if (e.ctrlKey && e.key === 'y') redo();
+    if (e.key === 'b') document.getElementById('brush').click();
+    if (e.key === 'e') document.getElementById('eraser').click();
+    if (e.key === 'c') document.getElementById('clear').click();
+  });
+
+  saveState();
+</script>
+
+</body>
+</html> -->
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resizable Drawing Canvas</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      flex-direction: column;
+    }
+    .container {
+      text-align: center;
+    }
+    canvas {
+      border: 2px solid #333;
+      background-color: white;
+      cursor: crosshair;
+      border-radius: 8px;
+      max-width: 100%;
+    }
+    .controls {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .control-btn, select, input {
+      padding: 10px 15px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      background-color: #007bff;
+      color: white;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .control-btn:hover, select:hover {
+      background-color: #0056b3;
+    }
+    .control-btn:active {
+      transform: scale(0.95);
+    }
+    #eraser { background-color: #dc3545; }
+    #eraser:hover { background-color: #b02a37; }
+    #clear { background-color: #28a745; }
+    #clear:hover { background-color: #1e7e34; }
+    #download { background-color: #ffa500; }
+    #download:hover { background-color: #cc8400; }
+    #brush-size { background-color: #6c757d; color: white; }
+    #color-picker { width: 50px; height: 40px; border: none; cursor: pointer; }
+    .size-input { width: 80px; text-align: center; font-size: 16px; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <canvas id="drawingCanvas" width="800" height="500"></canvas>
+  <div class="controls">
+    <button id="brush" class="control-btn">Brush</button>
+    <button id="eraser" class="control-btn">Eraser</button>
+    <button id="clear" class="control-btn">Clear</button>
+    <label for="brush-size">Size:</label>
+    <select id="brush-size">
+      <option value="3">Small</option>
+      <option value="5" selected>Medium</option>
+      <option value="10">Large</option>
+      <option value="20">Extra Large</option>
+    </select>
+    <input type="color" id="color-picker" value="#000000">
+    <button id="download" class="control-btn">Download</button>
+  </div>
+  <div class="controls">
+    <label>Width: <input type="number" id="canvas-width" class="size-input" value="800"></label>
+    <label>Height: <input type="number" id="canvas-height" class="size-input" value="500"></label>
+    <button id="resize" class="control-btn">Resize</button>
+  </div>
+</div>
+
+<script>
+  const canvas = document.getElementById('drawingCanvas');
+  const ctx = canvas.getContext('2d');
+
+  let isDrawing = false;
+  let brushSize = 5;
+  let currentColor = '#000000';
+
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = currentColor;
+  ctx.lineWidth = brushSize;
+
+  function startDrawing(e) {
+    e.preventDefault();
+    isDrawing = true;
+    [lastX, lastY] = [e.offsetX || e.touches[0].clientX - canvas.offsetLeft, e.offsetY || e.touches[0].clientY - canvas.offsetTop];
+  }
+
+  function stopDrawing() {
+    isDrawing = false;
+    ctx.beginPath();
+  }
+
+  function draw(e) {
+    if (!isDrawing) return;
+    e.preventDefault();
+    const x = e.offsetX || e.touches[0].clientX - canvas.offsetLeft;
+    const y = e.offsetY || e.touches[0].clientY - canvas.offsetTop;
+
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    [lastX, lastY] = [x, y];
+  }
+
+  canvas.addEventListener('mousedown', startDrawing);
+  canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('mouseup', stopDrawing);
+  canvas.addEventListener('touchstart', startDrawing);
+  canvas.addEventListener('touchmove', draw);
+  canvas.addEventListener('touchend', stopDrawing);
+
+  document.getElementById('eraser').addEventListener('click', () => {
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = brushSize * 2;
+  });
+
+  document.getElementById('brush').addEventListener('click', () => {
+    ctx.strokeStyle = currentColor;
+    ctx.lineWidth = brushSize;
+  });
+
+  document.getElementById('clear').addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+
+  document.getElementById('brush-size').addEventListener('change', (e) => {
+    brushSize = e.target.value;
+    ctx.lineWidth = brushSize;
+  });
+
+  document.getElementById('color-picker').addEventListener('input', (e) => {
+    currentColor = e.target.value;
+    ctx.strokeStyle = currentColor;
+  });
+
+  document.getElementById('download').addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.download = 'drawing.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+
+  document.getElementById('resize').addEventListener('click', () => {
+    const newWidth = parseInt(document.getElementById('canvas-width').value);
+    const newHeight = parseInt(document.getElementById('canvas-height').value);
+
+    if (newWidth > 0 && newHeight > 0) {
+      const tempCanvas = document.createElement('canvas');
+      const tempCtx = tempCanvas.getContext('2d');
+
+      tempCanvas.width = newWidth;
+      tempCanvas.height = newHeight;
+
+      tempCtx.drawImage(canvas, 0, 0);
+
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+      ctx.drawImage(tempCanvas, 0, 0);
+    }
+  });
+</script>
+
+</body>
+
+</html> -->
+<!--  -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Drawing Canvas</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      flex-direction: column;
+    }
+    .container {
+      text-align: center;
+      position: relative;
+    }
+    canvas {
+      border: 2px solid #333;
+      background-color: white;
+      cursor: crosshair;
+      border-radius: 8px;
+    }
+    .controls {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .control-btn {
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    #brush { background-color: #4CAF50; color: white; }
+    #eraser { background-color: #e74c3c; color: white; }
+    #clear { background-color: #f39c12; color: white; }
+    #download { background-color: #3498db; color: white; }
+
+    .control-btn:hover {
+      filter: brightness(90%);
+    }
+    input[type="color"] {
+      border: none;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 150px;
+      height: 6px;
+      background: #ccc;
+      border-radius: 5px;
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: #333;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    #size-label {
+      font-weight: bold;
+      width: 50px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <canvas id="drawingCanvas" width="800" height="500"></canvas>
+  <div class="controls">
+    <button id="brush" class="control-btn">Brush (B)</button>
+    <button id="eraser" class="control-btn">Eraser (E)</button>
+    <button id="clear" class="control-btn">Clear (C)</button>
+    
+    <label>Size:</label>
+    <div class="slider-container">
+      <input type="range" id="size-slider" min="1" max="100" value="5">
+      <span id="size-label">5</span>
+    </div>
+
+    <input type="color" id="color-picker" value="#000000">
+    <button id="download" class="control-btn">Download</button>
+  </div>
+</div>
+
+<script>
+  const canvas = document.getElementById('drawingCanvas');
+  const ctx = canvas.getContext('2d');
+  const colorPicker = document.getElementById('color-picker');
+  const sizeSlider = document.getElementById('size-slider');
+  const sizeLabel = document.getElementById('size-label');
+
+  let currentColor = '#000000';
+  let isDrawing = false;
+  let isErasing = false;
+  let lastX = 0;
+  let lastY = 0;
+  let brushSize = parseInt(sizeSlider.value);
+
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = currentColor;
+  ctx.lineWidth = brushSize;
+
+  function startDrawing(e) {
+    e.preventDefault();
+    isDrawing = true;
+    lastX = e.offsetX || e.touches[0].clientX - canvas.offsetLeft;
+    lastY = e.offsetY || e.touches[0].clientY - canvas.offsetTop;
+  }
+
+  function stopDrawing() {
+    isDrawing = false;
+    ctx.beginPath();
+  }
+
+  function draw(e) {
+    e.preventDefault();
+    if (!isDrawing) return;
+    const x = e.offsetX || e.touches[0].clientX - canvas.offsetLeft;
+    const y = e.offsetY || e.touches[0].clientY - canvas.offsetTop;
+
+    if (isErasing) {
+      ctx.clearRect(x - brushSize / 2, y - brushSize / 2, brushSize, brushSize);
+    } else {
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    }
+
+    lastX = x;
+    lastY = y;
+  }
+
+  canvas.addEventListener('mousedown', startDrawing);
+  canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('mouseup', stopDrawing);
+  canvas.addEventListener('touchstart', startDrawing);
+  canvas.addEventListener('touchmove', draw);
+  canvas.addEventListener('touchend', stopDrawing);
+
+  document.getElementById('brush').addEventListener('click', () => {
+    isErasing = false;
+    ctx.strokeStyle = currentColor;
+    ctx.lineWidth = brushSize;
+  });
+
+  document.getElementById('eraser').addEventListener('click', () => {
+    isErasing = true;
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.lineWidth = brushSize;
+  });
+
+  document.getElementById('clear').addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+
+  colorPicker.addEventListener('input', (e) => {
+    currentColor = e.target.value;
+    ctx.strokeStyle = currentColor;
+  });
+
+  sizeSlider.addEventListener('input', (e) => {
+    brushSize = parseInt(e.target.value);
+    ctx.lineWidth = brushSize;
+    sizeLabel.textContent = brushSize;
+  });
+
+  document.getElementById('download').addEventListener('click', () => {
+    let link = document.createElement('a');
+    link.download = 'drawing.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'b' || e.key === 'B') {
+      document.getElementById('brush').click();
+    }
+    if (e.key === 'e' || e.key === 'E') {
+      document.getElementById('eraser').click();
+    }
+    if (e.key === 'c' || e.key === 'C') {
+      document.getElementById('clear').click();
+    }
+  });
+</script>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Drawing Canvas</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      flex-direction: column;
+    }
+
+    .resizeWidget{
+        margin-top: 20px;
+    }
+    .container {
+      text-align: center;
+      position: relative;
+    }
+    canvas {
+      border: 2px solid #333;
+      background-color: white;
+      cursor: crosshair;
+      border-radius: 8px;
+    }
+    .controls {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .control-btn {
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-left: 5px ;
+      transition: 0.2s;
+      background-color: #3498db;
+    }
+    #brush { background-color: #4CAF50; color: white; }
+    #eraser { background-color: #e74c3c; color: white; }
+    #clear { background-color: #f39c12; color: white; }
+    #download { background-color: #3498db; color: white; }
+
+    .control-btn:hover {
+      filter: brightness(90%);
+    }
+    input[type="color"], input[type="number"] {
+      border: none;
+      width: 60px;
+      height: 30px;
+      text-align: center;
+      font-size: 14px;
+      border-radius: 6px;
+    }
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    input[type="range"] {
+      width: 150px;
+      cursor: pointer;
+    }
+    #size-label {
+      font-weight: bold;
+      width: 50px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <canvas id="drawingCanvas" width="800" height="500"></canvas>
+  <div class="controls">
+    <button id="brush" class="control-btn">Brush (B)</button>
+    <button id="eraser" class="control-btn">Eraser (E)</button>
+    <button id="clear" class="control-btn">Clear (C)</button>
+    
+    <label > <span style="font-weight:bold;">Brush/Eraser</span> Size:</label>
+    <div class="slider-container">
+      <input type="range" id="size-slider" min="1" max="100" value="5">
+      <span id="size-label">5</span>
+    </div>
+    <label>Color</label>
+    <input type="color" id="color-picker" value="#000000">
+    <button id="download" class="control-btn">Download</button>
+
+  </div>
+
+    <div class="resizeWidget">
+    <label>Width:</label>
+    <input type="number" id="canvas-width" value="800" min="100">
+    <label>Height:</label>
+    <input type="number" id="canvas-height" value="500" min="100">
+    <button id="resizeCanvas" class="control-btn"> Resize </button>
+  </div>
+</div>
+
+<script>
+  const canvas = document.getElementById('drawingCanvas');
+  const ctx = canvas.getContext('2d');
+  const colorPicker = document.getElementById('color-picker');
+  const sizeSlider = document.getElementById('size-slider');
+  const sizeLabel = document.getElementById('size-label');
+  const canvasWidthInput = document.getElementById('canvas-width');
+  const canvasHeightInput = document.getElementById('canvas-height');
+  const resizeCanvasBtn = document.getElementById('resizeCanvas');
+
+  let currentColor = '#000000';
+  let isDrawing = false;
+  let isErasing = false;
+  let lastX = 0;
+  let lastY = 0;
+  let brushSize = parseInt(sizeSlider.value);
+
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  ctx.strokeStyle = currentColor;
+  ctx.lineWidth = brushSize;
+
+  function startDrawing(e) {
+    e.preventDefault();
+    isDrawing = true;
+    lastX = e.offsetX || e.touches[0].clientX - canvas.offsetLeft;
+    lastY = e.offsetY || e.touches[0].clientY - canvas.offsetTop;
+  }
+
+  function stopDrawing() {
+    isDrawing = false;
+    ctx.beginPath();
+  }
+
+  function draw(e) {
+    e.preventDefault();
+    if (!isDrawing) return;
+    const x = e.offsetX || e.touches[0].clientX - canvas.offsetLeft;
+    const y = e.offsetY || e.touches[0].clientY - canvas.offsetTop;
+
+    if (isErasing) {
+      ctx.clearRect(x - brushSize / 2, y - brushSize / 2, brushSize, brushSize);
+    } else {
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    }
+
+    lastX = x;
+    lastY = y;
+  }
+
+  function resizeCanvas() {
+    const newWidth = parseInt(canvasWidthInput.value);
+    const newHeight = parseInt(canvasHeightInput.value);
+
+    // Save existing drawing
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+    // Resize canvas
+    canvas.width = newWidth;
+    canvas.height = newHeight;
+
+    // Restore drawing
+    ctx.putImageData(imageData, 0, 0);
+
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = currentColor;
+    ctx.lineWidth = brushSize;
+  }
+
+  canvas.addEventListener('mousedown', startDrawing);
+  canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('mouseup', stopDrawing);
+  canvas.addEventListener('touchstart', startDrawing);
+  canvas.addEventListener('touchmove', draw);
+  canvas.addEventListener('touchend', stopDrawing);
+
+  document.getElementById('brush').addEventListener('click', () => {
+    isErasing = false;
+    ctx.strokeStyle = currentColor;
+    ctx.lineWidth = brushSize;
+  });
+
+  document.getElementById('eraser').addEventListener('click', () => {
+    isErasing = true;
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.lineWidth = brushSize;
+  });
+
+  document.getElementById('clear').addEventListener('click', () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+
+  colorPicker.addEventListener('input', (e) => {
+    currentColor = e.target.value;
+    ctx.strokeStyle = currentColor;
+  });
+
+  sizeSlider.addEventListener('input', (e) => {
+    brushSize = parseInt(e.target.value);
+    ctx.lineWidth = brushSize;
+    sizeLabel.textContent = brushSize;
+  });
+
+  document.getElementById('download').addEventListener('click', () => {
+    let link = document.createElement('a');
+    link.download = 'drawing.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+
+  resizeCanvasBtn.addEventListener('click', resizeCanvas);
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'b' || e.key === 'B') document.getElementById('brush').click();
+    if (e.key === 'e' || e.key === 'E') document.getElementById('eraser').click();
+    if (e.key === 'c' || e.key === 'C') document.getElementById('clear').click();
+  });
+</script>
+
+</body>
 </html>
+
+
+
+
+
+
